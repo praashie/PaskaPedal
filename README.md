@@ -19,10 +19,10 @@ This repository contains the firmware source.
 * Acts as a driverless USB device
 * Provides 2 continuous and 2 two-state MIDI CC controllers
 * Manual calibration for pedal extremes
+* Calibration data is permanently stored in EEPROM
 * Connection for a guitar amplifier footswitch for additional looper/effect control
 
 ## Issues
 * Doesn't work on Macs
-* Calibration isn't stored in on-board EEPROM
 
 [Demonstration video](https://youtu.be/3chLeBRuCPc)

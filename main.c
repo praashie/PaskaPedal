@@ -21,6 +21,7 @@ Elmo von Weissenberg/praash
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 #include <avr/pgmspace.h>
+#include <avr/eeprom.h>
 
 #include "usbdrv.h"
 #include <util/delay.h>
@@ -175,6 +176,9 @@ USB_PUBLIC uchar usbFunctionSetup(uchar data[8]) {
 }
 
 
+float EEMEM eeprom_calibration_min[NUM_PEDALS] = {0};
+float EEMEM eeprom_calibration_max[NUM_PEDALS] = {0};
+
 //Using port A: Pins PA2 and PA3
 //const char pedal_pin[2] = {2, 3};
 typedef struct {
@@ -272,6 +276,11 @@ int main() {
     uchar i;
     for (i=0; i<NUM_PEDALS; i++) {
         setInputPin(A, pedals[i].pin);
+        //Read calibration from EEPROM
+        pedals[i].mapMin = eeprom_read_float(&eeprom_calibration_min[i]);
+        eeprom_busy_wait();
+        pedals[i].mapMax = eeprom_read_float(&eeprom_calibration_max[i]);
+        eeprom_busy_wait();
     }
     for (i=0; i<NUM_FEET; i++) {
         setInputPin(A, footswitch[i].pin);
@@ -286,7 +295,6 @@ int main() {
     //ADC params
     ADMUX = 0; //AREF = AVcc
     ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1);
-
 
     //V-USB example code, with original comments
     wdt_enable(WDTO_1S); // enable 1s watchdog timer
@@ -309,7 +317,7 @@ int main() {
 
     sei(); // Enable interrupts after re-enumeration
 
-    
+
     //============================
     //Loop
     //============================
@@ -376,11 +384,15 @@ int main() {
             }else if (calibState == CAL_MIN) {
                 for (i=0; i < NUM_PEDALS; i++) {
                     pedals[i].mapMin = pedals[i].smoothedValue;
+                    eeprom_update_float(&eeprom_calibration_min[i], pedals[i].mapMin); //Write to EEPROM
+                    eeprom_busy_wait();
                 }
                 debugLedInterval = 50;
             } else if (calibState == CAL_MAX) {
                 for (i=0; i < NUM_PEDALS; i++) {
                     pedals[i].mapMax = pedals[i].smoothedValue;
+                    eeprom_update_float(&eeprom_calibration_max[i], pedals[i].mapMax);
+                    eeprom_busy_wait();
                 }
                 debugLedInterval = 0;
             }
