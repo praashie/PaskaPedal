@@ -1,3 +1,5 @@
+// Configuration for the V-USB library.
+
 /* Name: usbconfig.h
  * Project: V-USB, virtual USB port for Atmel's(r) AVR(r) microcontrollers
  * Author: Christian Starkjohann

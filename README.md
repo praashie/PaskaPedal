@@ -1,11 +1,12 @@
-# PaskaPedal
+# PraashPedal
 
 ![The inspiration](./pedals.JPG)
 
 
-PaskaPedal is a small electronics project built on two unused KORG guitar volume pedals,
+PraashPedal is a small electronics project built on two unused KORG guitar volume pedals,
 turning them into a class-compliant(-enough-for-Linux) USB MIDI controller,
 used for controlling synthesizers and guitar effects.
+This project utilizes the [V-USB](https://www.obdev.at/products/vusb/index.html) library.
 
 This repository contains the firmware source.
 
@@ -23,6 +24,13 @@ This repository contains the firmware source.
 * Connection for a guitar amplifier footswitch for additional looper/effect control
 
 ## Issues
-* Doesn't work on Macs
+* The device descriptor is dodgy and Linux's kernel log complains about it. Doesn't work at all on Macs.
+
+## Building
+Download the latest V-USB release, and copy the contents of its `usbdrv` into the `usbdrv` directory of this project.
+If you don't happen to use an ATTiny84, you need to tweak lots of things.
+Then, simply run 
+      make
+      make flash
 
 [Demonstration video](https://youtu.be/3chLeBRuCPc)

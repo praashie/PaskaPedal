@@ -1,13 +1,12 @@
 /*
-Firmware source of PaskaPedal.
+Firmware source of PraashPedal.
 
-PaskaPedal is a DIY project built on two unused KORG guitar volume pedals,
+PraashPedal is a DIY project built on two unused KORG guitar volume pedals,
 turning them into a class-compliant(-enough-for-Linux) USB MIDI controller,
 used for controlling synthesizers and guitar effects.
 
 Runs on an Atmel ATTiny84, with 16MHz clock.
-
-TODO: save pedal calibrations in EEPROM
+Requires V-USB.
 
 Sorry for writing a big lump of ugly code.
 

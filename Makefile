@@ -1,3 +1,7 @@
+# Adapted from http://codeandlife.com/data/Makefile
+# Options set up for ATTiny84
+
+
 # WinAVR cross-compiler toolchain is used here
 CC = avr-gcc
 OBJCOPY = avr-objcopy
