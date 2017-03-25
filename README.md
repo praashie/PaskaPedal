@@ -30,6 +30,7 @@ This repository contains the firmware source.
 Download the latest V-USB release, and copy the contents of its `usbdrv` into the `usbdrv` directory of this project.
 If you don't happen to use an ATTiny84, you need to tweak lots of things.
 Then, simply run 
+
       make
       make flash
 
